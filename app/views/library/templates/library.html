@@ -1,0 +1,25 @@
+<div class="container">
+
+	<ul class="cover-list list-unstyled">
+		<li class="cover-list-item" ng-repeat="title in libraryController.titles"
+			ng-click="libraryController.goToLibraryTitleView(title)">
+			<div class="cover-list-image">
+				<aqf-sm-image images="title.headerImages" image-height="300" image-width="900"/>
+			</div>
+			<div class="cover-list-infos" ng-style="libraryController.getStyleForTitle(title)">
+				<span class="cover-list-infos-title">
+					{{title.name}}
+				</span>
+				<span class="cover-list-infos-text bottom">
+					<span class="bold">
+						{{title.issues.length}}
+					</span>
+					<span translate="library.issues"></span>
+				</span>
+			</div>
+		</li>
+	</ul>
+	<div ng-if="!libraryController.isLoading && libraryController.isLibraryEmpty()">
+		<span translate="nocontent"></span>
+	</div>
+</div>

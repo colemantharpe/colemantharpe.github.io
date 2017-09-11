@@ -1,0 +1,23 @@
+<div class="header-theme"
+	 ng-class="{'open-navigation':headerController.navigationValue.displayBars,
+	 'open-tools':headerController.navigationValue.displayEllipsis,
+	 'open-language':headerController.navigationValue.displayLanguage,
+	 'open-connection':headerController.navigationValue.displayConnection}">
+	<div class="container">
+		<div class="brand">
+			<aqf-toolbars aqf-toolbars-position="brand"></aqf-toolbars>
+		</div>
+		<div class="navigation">
+			<aqf-toolbars aqf-toolbars-position="center"></aqf-toolbars>
+		</div>
+		<div class="tools">
+			<aqf-toolbars aqf-toolbars-position="right"></aqf-toolbars>
+		</div>
+		<div class="language">
+			<aqf-toolbars aqf-toolbars-position="right-language"></aqf-toolbars>
+		</div>
+		<div class="connection">
+			<aqf-toolbars aqf-toolbars-position="right-connection"></aqf-toolbars>
+		</div>
+	</div>
+</div>

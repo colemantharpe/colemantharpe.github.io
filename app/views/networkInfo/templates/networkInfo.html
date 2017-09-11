@@ -1,0 +1,8 @@
+<div class="networkinfo-wrapper alert-warning" ng-if="networkInfoController.show" ng-click="networkInfoController.toggleDisplayMessage()">
+	<div class="container">
+		<span ng-bind="networkInfoController.message"></span>
+		<span>
+		<button class="btn btn-warning" ng-if="networkInfoController.showBtn" ng-click="networkInfoController.toggleOffline()" ng-bind="networkInfoController.buttonText"></button>
+	</span>
+	</div>
+</div>

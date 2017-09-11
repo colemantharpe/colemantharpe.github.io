@@ -1,0 +1,70 @@
+<div class="awk-issue">
+	<div ng-if="issueController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-if="!issueController.isLoading">
+		<div class="header">
+			<!--TODO add auto width or height in sm-image-->
+			<aqf-sm-image class="header-background-image hidden-xs"
+						  images="issueController.thumbnailIds"
+						  image-width="100"
+						  image-height="400"></aqf-sm-image>
+			<aqf-sm-image class="header-background-image visible-xs"
+						  images="issueController.thumbnailIds"
+						  image-width="100"
+						  image-height="500"></aqf-sm-image>
+			<div class="issue-details">
+				<div class="col col-sm-4 left">
+					<div class="row name" ng-bind="issueController.currentIssue.name"></div>
+					<div class="row date" ng-bind="issueController.publicationDate"></div>
+				</div>
+				<div class="cover-image-wrapper col col-sm-4">
+					<aqf-sm-image class="cover-image hidden-xs"
+								  images="issueController.thumbnailIds"
+								  image-width="260"
+								  image-height="360">
+					</aqf-sm-image>
+					<aqf-sm-image class="cover-image visible-xs"
+								  images="issueController.thumbnailIds"
+								  image-width="216"
+								  image-height="300">
+					</aqf-sm-image>
+				</div>
+				<div class="col col-sm-4 right">
+					<button
+							type="button"
+							ng-click="issueController.actionBtn()"
+							ng-class="issueController.getClassActionBtn()"
+							class="btn">
+						<ng-include ng-if="!issueController.readerStatus"
+									src="'components/spinner/spinner.html'"></ng-include>
+
+						<span class="text-button-action" ng-bind="issueController.getTranslateActionBtn()"
+							  ng-hide="issueController.readerStatus === 'downloading' && issueController.downloadPercentage"></span>
+
+						<div ng-if="issueController.readerStatus === 'downloading' && issueController.downloadPercentage"
+							 class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+								 aria-valuemax="100" ng-style="{width: issueController.downloadPercentage + '%'}">
+								<span translate="issue.downloadingButton"></span> {{ issueController.downloadPercentage
+								}}%
+							</div>
+						</div>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="container content">
+			<div>
+				<uib-tabset type="pills" justified="true">
+					<uib-tab ng-repeat="tab in issueController.tabs" heading="{{ tab.heading }}"
+							 active="{{ tab.active }}">
+						<div ng-include="tab.templateUrl"></div>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
+	</div>
+</div>

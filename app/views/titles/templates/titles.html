@@ -1,0 +1,20 @@
+<div class="awk-title">
+	<div ng-if="titlesController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div class="titles-pad" ng-if="!titlesController.isLoading">
+		<div class="container">
+			<div ng-repeat="title in titlesController.titles" class="title-content">
+				<aqf-sm-tile-title
+						class="item"
+						tile-height="titlesController.tileHeight"
+						thumbnail-ratio="titlesController.ratios[title.id]"
+						link-params="title.linkParams"
+						item="title"
+				></aqf-sm-tile-title>
+			</div>
+		</div>
+	</div>
+</div>

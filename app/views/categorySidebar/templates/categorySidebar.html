@@ -1,0 +1,32 @@
+<div class="aqf-sidebar" ng-class="{'show': categorySidebarController.service.isSidebarDisplay}"
+	ng-style="categorySidebarController.getStyle($scroll)"
+>
+	<div class="aqf-sidebar-header">
+		<h4>
+			<span ng-bind="categorySidebarController.getTitleTranslate()"></span>
+			<span class="category-size" ng-bind="categorySidebarController.getSize()"></span>
+		</h4>
+	</div>
+	<div class="aqf-sidebar-line" ng-repeat="item in categorySidebarController.data"
+		 ng-click="categorySidebarController.service.toggleSidebar()"
+		 ui-sref="category({itemId: item.category.id})">
+		<div class="aqf-sidebar-line-image">
+			<aqf-sm-image images="item.images" image-height="60" image-width="320"/>
+		</div>
+		<div class="aqf-sidebar-line-description">
+			<h4 ng-bind="item.category.name"></h4>
+			<div class="description">
+				<span translate="{{categorySidebarController.getItemCountTranslate(item)}}"></span>
+				<span class="item-size" ng-bind="{{categorySidebarController.getItemSize(item)}}"></span>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="aqf-sidebar-shadow"
+	 ng-class="{'show': categorySidebarController.service.isSidebarDisplay}"
+	 ng-style="categorySidebarController.getStyle($scroll)"
+	 ng-click="categorySidebarController.service.isSidebarDisplay = false"
+	 ng-show="categorySidebarController.service.isSidebarDisplay">
+</div>

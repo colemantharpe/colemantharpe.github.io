@@ -1,1 +1,30 @@
-"hello world"
+<!DOCTYPE html>
+<html ng-app="aqf.webkiosk" aqf-config="config">
+
+<head>
+	<meta charset="UTF-8">
+	<title ng-bind="config.meta.title"></title>
+	<meta name="description" content="{{config.meta.description}}">
+	<meta name="author" content="{{config.meta.author}}">
+	<link rel="stylesheet" href="styles/vendor.css">
+	<link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="fixed-nav fixed-sidebar"
+	  aqf-scroll
+	  ng-class="{'force-login' : config.authConfig.forceLogin,
+	  'night-theme' : config.theme.night,
+	  'day-theme' : !config.theme.night
+	  }">
+<main  ui-view></main>
+<aqf-auth></aqf-auth>
+
+<script src="scripts/vendor.js"></script>
+
+<script src="scripts/config.js"></script>
+<script src="scripts/app.js"></script>
+
+<aqf-analytics></aqf-analytics>
+</body>
+
+</html>

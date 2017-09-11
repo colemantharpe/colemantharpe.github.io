@@ -1,0 +1,57 @@
+<div class="loginscreen">
+	<div class="login-header">
+		<h1 translate="authComponent.login"></h1>
+	</div>
+	<div class="login-body">
+		<div ng-if="authComponentController.message.length" class="alert alert-danger">
+			{{authComponentController.message}}
+		</div>
+		<form role="form" name="authComponentController.loginForm" ng-submit="authComponentController.login()"
+			  autocomplete="on" novalidate>
+			<div class="input-group form-group">
+				<label for="identifiant"
+					   class="input-group-addon input-group-addon-email">
+					<i class="fa fa-user"
+					   tooltip="{{ 'signup.identifiant' | translate }}"></i>
+				</label>
+				<input type="email"
+					   id="identifiant"
+					   ng-model="authComponentController.model.email"
+					   class="form-control"
+					   placeholder="{{'authComponent.username' | translate}}"
+					   required/>
+			</div>
+			<div class="input-group form-group">
+				<label for="password"
+					   class="input-group-addon input-group-addon-email">
+					<i class="fa fa-lock"
+					   tooltip="{{ 'signup.password' | translate }}"></i>
+				</label>
+				<input type="password"
+					   id="password"
+					   ng-model="authComponentController.model.password"
+					   class="form-control"
+					   placeholder="{{'authComponent.password' | translate}}"
+					   required/>
+			</div>
+			<button type="submit"
+					class="btn btn-success btn-loading btn-block full-width m-b login-btn">
+				<span class="loading" ng-if="authComponentController.loading"></span>
+				<span class="content" translate="authComponent.login"></span>
+			</button>
+		</form>
+	</div>
+	<div class="login-footer"
+	 
+		 ng-if="authComponentController.kioskConfig.authConfig.showCreateAccount ||
+		 authComponentController.kioskConfig.authConfig.showForgotPassword">
+		<strong><a href="https://docs.google.com/forms/d/e/1FAIpQLSc1wbh6IUSp1jysmvcvycHhIx6VmrdjkvRQVM_gc0EcuJanSQ/viewform" target="_blank">Create an account</a></strong>
+			<!--<small translate="authComponent.createAccount"></small>-->
+		<span ng-if="authComponentController.kioskConfig.authConfig.showCreateAccount &&
+		authComponentController.kioskConfig.authConfig.showForgotPassword">-</span>
+		<a ui-sref="forgotPassword" ng-if="authComponentController.kioskConfig.authConfig.showForgotPassword">
+			<strong translate="authComponent.forgotPassword"></strong>
+		</a>
+		<p><small><br>GPB verifies teacher credentials for each registration request. After you are verified, you will receive an email with your username and password within 3 business days. If you have questions or concerns, please email <a href="mailto:education@gpb.org" target="_top">education@gpb.org</a>.</p></small>
+	</div>
+</div>

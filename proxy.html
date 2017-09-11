@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="aqf.webkiosk">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Proxy</title>
+</head>
+
+<body class="fixed-nav fixed-sidebar">
+<script src="scripts/vendor.js"></script>
+<script>
+	window.onload = function () {
+		Porthole.WindowProxyDispatcher.start();
+	};
+</script>
+
+</body>
+</html>

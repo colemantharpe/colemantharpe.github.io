@@ -1,0 +1,142 @@
+<div ng-class="{'show': searchController.searchService.isDisplay}"
+	 ng-style="searchController.getStyle($scroll)"
+	 class="search">
+	<div class="search-container">
+		<div class="search-box">
+			<label for="search-input" class="search-box-icon"><i class="icon-search"></i>
+				<input type="text"
+					   id="search-input"
+					   class="search-input"
+					   translate
+					   translate-attr-placeholder="search.inputplaceholder"
+					   ng-model="searchController.input"
+					   ng-change="searchController.onInputChange()"
+					   maxlength="50"
+				/>
+				<span class="reset-input" ng-if="searchController.input" ng-click="searchController.resetInput()"><i class="fa fa-times-circle"></i></span>
+			</label>
+			<span class="search-cancel" ng-click="searchController.cancel()" translate="search.cancel"></span>
+		</div>
+		<div class="search-result" ng-class="{'isSearching':searchController.input}">
+			<div class="inissues-search-results" ng-if="searchController.searchresult">
+				<div class="number" ng-if="searchController.numResults > 0">
+					<span translate="search.numIssueFound" translate-values="{
+					num: searchController.numResults,
+					suffix: (searchController.numResults > 1 ? 's' : ''),
+					search: searchController.input
+					}"></span>
+				</div>
+				<ul class="search-list list-unstyled">
+					<li class="result-card"
+						ng-repeat="issue in searchController.searchResult"
+						ng-click="searchController.searchInIssue(issue)"
+					>
+						<div class="left-side">
+							<div class="search-item-image">
+								<aqf-sm-image images="issue.cover_id" image-height="150" image-width="150"></aqf-sm-image>
+							</div>
+						</div>
+						<div class="right-side">
+							<div class="card-title"><span ng-bind-html="(issue['match_info'] && issue['match_info'].name ? issue['match_info'].name : issue.name)"></span></div>
+							<div class="pub-date"><span ng-bind="issue['publication_date'] * 1000 | date:'MMMM yyyy'"></span></div>
+							<div class="info">
+								<span class="num-pages"
+									  ng-if="issue['_contains'].length"
+									  translate="search.numPageFound"
+									  translate-values="{num: issue['_contains'][0]['num_pages'], suffix: (issue['_contains'][0]['num_pages'] > 1 ? 's' : '')}">
+								</span>
+							</div>
+						</div>
+					</li>
+
+					<button
+							type="button"
+							ng-click="searchController.loadMoreIssues()"
+							ng-if="searchController.canLoadMoreIssues()"
+							class="search-load-more btn"
+							ng-class="{'isLoading': searchController.isLoading}"
+							ng-disabled="searchController.isLoading"
+					>
+						<span class="search-load-more-text" translate="search.loadMore"></span>
+						<i class="fa fa-refresh fa-spin" aria-hidden="true"></i>
+					</button>
+				</ul>
+			</div>
+			<div class="inpages-search-results animate-slide" ng-if="searchController.spotlightedIssue">
+				<div class="back-button" ng-click="searchController.cancelInIssueSearch()">
+					<i class="fa fa-arrow-left" aria-hidden="true"></i>
+				</div>
+				<div class="spotlighted-issue result-card">
+					<div class="left-side" ng-click="searchController.goToIssueView(searchController.spotlightedIssue)">
+						<div class="search-item-image">
+							<aqf-sm-image images="searchController.spotlightedIssue.cover_id" image-height="150" image-width="150"></aqf-sm-image>
+						</div>
+					</div>
+					<div class="right-side">
+						<div class="card-title link" ng-click="searchController.goToIssueView(searchController.spotlightedIssue)">
+							<span ng-bind="searchController.spotlightedIssue.name"></span>
+						</div>
+						<div class="card-subtitle"><span ng-bind="searchController.spotlightedIssue['title_name'].default"></span></div>
+						<div class="pub-date"><span ng-bind="searchController.spotlightedIssue['publication_date'] * 1000 | date:'MMMM yyyy'"></span></div>
+						<div class="info">
+							<button class="btn read" translate="issue.readButton" ng-click="searchController.read(searchController.spotlightedIssue)"></button>
+						</div>
+					</div>
+				</div>
+				<div class="head">
+					<span translate="search.numPageFound2" translate-values="{
+					num: searchController.numResultsInIssue,
+					suffix: (searchController.numResultsInIssue > 1 ? 's' : '')
+					}"></span>
+				</div>
+				<div class="results">
+					<div class="result-card"
+						 ng-repeat="page in searchController.inIssueSearchResult"
+						 ng-click="searchController.readPage(page)"
+					>
+						<div class="page-thumbnail">
+							<aqf-sm-image ng-if="page.thumbnail_id.length" images="page.thumbnail_id" image-height="120" image-width="120"></aqf-sm-image>
+							<img ng-if="!page.thumbnail_id.length" src="assets/images/page-placeholder.svg"/>
+						</div>
+						<div class="page-snippet" ng-bind-html="'...' + page._lines[0] + '...'"></div>
+					</div>
+					<button
+							type="button"
+							ng-click="searchController.loadMorePages()"
+							ng-if="searchController.canLoadMorePages()"
+							class="search-load-more btn"
+							ng-class="{'isLoading': searchController.isLoading}"
+							ng-disabled="searchController.isLoading"
+					>
+						<span class="search-load-more-text" translate="search.loadMore"></span>
+						<i class="fa fa-refresh fa-spin" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="history-container" ng-show="searchController.noResults || (searchController.numResults === 0 && searchController.searchHistory.length > 0)">
+				<div class="error text-danger no-result" ng-show="searchController.noResults" translate="search.noResults"></div>
+				<div class="search-history" ng-if="searchController.numResults === 0 && searchController.searchHistory.length > 0">
+					<div class="head">
+						<span translate="search.lastSearch"></span>
+					</div>
+					<div class="result"
+						 ng-repeat="history in searchController.searchHistory | orderBy:'date':true | limitTo:searchController.limitHistoryResult"
+						 ng-click="searchController.search(history.token)"
+					>
+						<div><i class="fa fa-clock-o icon" aria-hidden="true"></i><span class="token" ng-bind="history.token"></span></div>
+						<div class="timeago" ng-bind="history.date | timeAgo"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="search-shadow"
+	 ng-style="searchController.getStyle($scroll)"
+	 ng-click="searchController.searchService.isDisplay = false"
+	 ng-class="{'show': searchController.searchService.isDisplay}"
+>
+</div>

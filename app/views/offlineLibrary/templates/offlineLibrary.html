@@ -1,0 +1,19 @@
+<div class="container offline-library">
+	<div ng-if="offlineLibraryController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-if="!offlineLibraryController.isLoading">
+		<div class="issue" ng-repeat="issue in offlineLibraryController.offlineIssues">
+			<img class="issue-thumb" ng-src="{{issue.coverUrl}}" />
+			<div class="issue-name" ng-bind="issue.name"></div>
+
+			<div class="tool">
+				<a type="button" class="btn btn-primary" ng-click="offlineLibraryController.readIssue(issue.issueId)">
+					<span class="fa fa-play"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

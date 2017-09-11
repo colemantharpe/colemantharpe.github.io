@@ -1,0 +1,40 @@
+<div class="container">
+	<div ng-if="(readController.isDesktopMode && readController.readerStatus === null) || (!readController.isDesktopMode && (readController.isLoading || !readController.readerIsReady))">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div class="messages">
+		<div ng-class="message.type === 'error' ? 'alert alert-danger' : message.type === 'msg' ? 'alert alert-success' : ''"
+			 ng-repeat="message in readController.messages" translate="{{message.text}}"></div>
+	</div>
+	<div ng-if="readController.readerStatus === 'not-downloaded'">
+		<button type="button" class="btn btn-primary" ng-click="readController.download()" translate="read.button.download"
+				ng-disabled="!readController.isReadable"></button>
+	</div>
+	<div ng-if="readController.readerStatus === 'versionmismatch'">
+		<button type="button" class="btn btn-warning" ng-click="readController.read()" translate="read.button.readanyway"></button>
+		<button type="button" class="btn btn-primary" ng-click="readController.downloadNewVersion()" translate="read.button.downloadnewversion"></button>
+	</div>
+	<div ng-if="readController.downloadPercentage" class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{width: readController.downloadPercentage + '%'}">
+			{{ readController.downloadPercentage }}%
+		</div>
+	</div>
+	<aqf-reader ng-if="readController.issueIsLoaded"
+				id="{{ readController.iframeId }}"
+				reader-id="readController.iframeId"
+				reader-name="readController.iframeName"
+				reader-url="readController.iframeSrc"
+				reader-issue="readController.issue"
+				domain="readController.domain"
+				on-reader-ready="readController.onReaderReady(readerId)"
+				on-exit="readController.onExit(readerId)"
+				index-page="readController.indexPage"
+				on-go-to-page="readController.onGoToPage(indexPage)"
+				annotations-info="readController.annotationsInfo"
+				on-firebase-reauth="readController.onFirebaseReauth(callback)"
+				analytics-info="readController.analyticsInfo"
+				options="readController.readerOptions"
+	></aqf-reader>
+</div>

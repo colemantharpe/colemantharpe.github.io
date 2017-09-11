@@ -1,0 +1,36 @@
+<div class="library-issue">
+	<div ng-if="libraryTitleController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-if="!libraryTitleController.isLoading">
+		<aqf-sm-image
+				ng-if="libraryTitleController.title.headerImages && libraryTitleController.title.headerImages.length"
+				images="libraryTitleController.title.headerImages"
+				has-parallax="libraryTitleController.title.hasParallax"
+				image-width="libraryTitleController.elementWidth"
+				image-height="libraryTitleController.elementHeight"
+		></aqf-sm-image>
+		<div class="container">
+			<div class="awk-title">
+				<div class="title-content" ng-repeat="issue in libraryTitleController.acquiredIssues">
+					<aqf-sm-tile-issue
+							class="item"
+							item="issue"
+							class="item"
+							tile-height="libraryTitleController.tileHeight"
+							thumbnail-ratio="libraryTitleController.thumbRatio"
+							link-params="issue.linkParams"
+					>
+					</aqf-sm-tile-issue>
+					<div class="tool">
+						<a type="button" class="btn btn-primary">
+							<span class="fa fa-play" ng-click="libraryTitleController.readIssue(issue.id)"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

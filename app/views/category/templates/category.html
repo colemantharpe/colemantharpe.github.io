@@ -1,0 +1,41 @@
+<div class="awk-category">
+	<div ng-if="categoryController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-if="!categoryController.isLoading">
+		<div class="category-header" ng-if="categoryController.coverIds.length">
+			<aqf-sm-image images="categoryController.coverIds"
+						  image-width="categoryController.coverImageWidth"
+						  image-height="categoryController.coverImageHeight"></aqf-sm-image>
+		</div>
+		<div class="container category-content awk-title">
+			<div ng-switch="categoryController.category.typeContained">
+				<div ng-switch-when="title">
+					<div class="title-content" ng-repeat="item in categoryController.categoryContent">
+						<aqf-sm-tile-title
+								class="item"
+								tile-height="categoryController.tileHeight"
+								thumbnail-ratio="categoryController.thumbnailRatio"
+								link-params="item.linkParams"
+								item="item"
+						></aqf-sm-tile-title>
+					</div>
+
+				</div>
+				<div ng-switch-when="issue">
+					<div class="title-content" ng-repeat="item in categoryController.categoryContent">
+						<aqf-sm-tile-issue
+								class="item"
+								tile-height="categoryController.tileHeight"
+								thumbnail-ratio="categoryController.thumbnailRatio"
+								link-params="item.linkParams"
+								item="item"
+						></aqf-sm-tile-issue>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

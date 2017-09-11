@@ -1,0 +1,125 @@
+<div class="profile">
+	<div class="profile-banner">
+		<div class="filtre">
+			<div class="profile-banner-content">
+				<img class="profile-banner-image" src="assets/images/profile.svg" alt="">
+				<div class="profile-banner-info">
+					<span class="profile-banner-text" translate="profile.welcome"></span>
+					<span class="profile-banner-text">{{profileController.userId}}</span>
+					<button class="btn profile-banner-btn" ng-click="profileController.logout()"
+							translate="profile.logOut"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			<p style="margin-top: 10px";>
+			<br>
+			<a href="/ga-digital-textbook/#/en/storemodel/0sqij8aC9K4NGugx3yZf/en">Please click here to access Georgia Studies Digital Textbook Teacher Edition.</a>
+			<br>
+			</p>
+			<div class="forgot-password-header">
+			<h1>Change Your Password</h1>
+			</div>
+			<form action="change_password.php" method="post">
+				<div class="input-group form-group">
+				<label for="identifiant"
+					   class="input-group-addon input-group-addon-email">
+					<i class="fa fa-user"
+					   tooltip="{{ 'signup.identifiant' | translate }}"></i>
+				</label>
+				<input type="email"
+					   id="identifiant"
+					   ng-model="authComponentController.model.email"
+					   class="form-control"
+					   placeholder="{{'authComponent.username' | translate}}"
+					   name="identifier"
+					   required/>
+			</div>
+				<div class="input-group form-group">
+				<label for="password"
+					   class="input-group-addon input-group-addon-email">
+					<i class="fa fa-lock"
+					   tooltip="{{ 'signup.password' | translate }}"></i>
+				</label>
+				<input type="text"
+					   id="password1"
+					   ng-model="authComponentController.model.password1"
+					   class="form-control"
+					   placeholder="Old Password"
+					   name="password1"
+					   required/>
+			</div>
+			<div class="input-group form-group">
+				<label for="password"
+					   class="input-group-addon input-group-addon-email">
+					<i class="fa fa-lock"
+					   tooltip="{{ 'signup.password' | translate }}"></i>
+				</label>
+				<input type="password"
+					   id="password2"
+
+					   class="form-control"
+					   placeholder="New Password"
+					   name="password2"
+					   required/>
+			</div>
+			
+				<input class="btn btn-primary forgot-password-btn" type="submit"
+					   value="Submit New Password"/>
+			</form>
+				<!--<div class="profile-border-bottom">
+					<h2 translate="voucher.vouchertitle"></h2>
+					<form name="profileController.formVoucher" ng-submit="profileController.submitVoucher()"
+						  novalidate>
+						<div class="voucher-form-wrapper">
+							<div class="input-group form-group"
+								 ng-class="{'has-error': profileController.voucherHasError}"
+							>
+								<label for="voucherCode"
+									   class="input-group-addon input-group-addon-voucher">
+									<i class="fa fa-unlock"
+									   tooltip="{{ 'voucher.vouchertittle' | translate }}"></i>
+								</label>
+								<input type="text"
+									   id="voucherCode"
+									   ng-model="profileController.voucherCode"
+									   class="form-control"
+									   translate
+									   translate-attr-placeholder="voucher.common.enterACode"
+									   required/>
+							</div>
+							<div class="voucher-message" ng-if="profileController.voucherMessage !== null" translate="{{ profileController.voucherMessage }}"></div>
+						</div>
+						<button class="btn profile-btn" translate="voucher.common.addVoucher"></button>
+					</form>
+				</div>-->
+				<div class="accordion-version">
+					<uib-accordion>
+						<div uib-accordion-group is-open="profileController.accordionVersion.open">
+							<uib-accordion-heading>
+								<span translate="profile.informations"></span>
+								<i class="pull-right fa"
+								   ng-class="{'fa-chevron-down': profileController.accordionVersion.open,
+										 'fa-chevron-right': !profileController.accordionVersion.open}"></i>
+							</uib-accordion-heading>
+							<div class="version">
+								<div>
+									<span translate="profile.version"></span>
+									<span ng-bind="profileController.config.kioskVersion"></span>
+								</div>
+								<div>
+									Powered by <img src="assets/images/logo-aquafadas-noir.svg" title="Powered by Aquafadas" alt="Powered by Aquafadas">
+								</div>
+							</div>
+						</div uib-accordion-group>
+					</uib-accordion>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

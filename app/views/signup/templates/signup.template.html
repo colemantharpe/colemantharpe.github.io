@@ -1,0 +1,63 @@
+<div aqf-config="signupController.kioskConfig">
+	<div class="logo-signup text-center">
+
+		<img class="img-responsive" ng-src="{{signupController.kioskConfig.meta.logo}}"
+			 alt="{{'signup.altImage' | translate }}">
+	</div>
+
+	<div class="awk-signup ">
+		<div class="signup-header">
+			<h1 translate="signup.signup"></h1>
+		</div>
+		<div class="signup-content">
+			<div class="messages">
+				<div ng-class="message.type === 'error' ? 'alert alert-danger' : message.type === 'msg' ? 'alert alert-success' : ''"
+					 ng-repeat="message in signupController.messages">{{message.text}}
+				</div>
+			</div>
+			<form name="signupController.form" autocomplete="off" ng-submit="signupController.signup()">
+				<div class="input-group form-group"
+					 ng-class="{ 'has-error': signupController.form.email.$invalid && signupController.form.$submitted}">
+					<label for="identifiant" class="input-group-addon input-group-addon-email">
+						<i class="fa fa-user" tooltip="{{ 'signup.identifiant' | translate }}"></i>
+					</label>
+					<input class="form-control form-input" id="identifiant" type="text"
+						   name="email"
+						   ng-model="signupController.model.email" placeholder="{{ 'signup.identifiant' | translate }}"
+						   required/>
+				</div>
+
+				<div class="input-group form-group"
+					 ng-class="{ 'has-error': signupController.form.password.$invalid && signupController.form.$submitted}">
+					<label for="password" class="input-group-addon input-group-addon-email">
+						<i class="fa fa-lock" tooltip="{{ 'signup.password' | translate }}"></i>
+					</label>
+					<input class="form-control form-input" id="password" type="password"
+						   name="password"
+						   ng-model="signupController.model.password" placeholder="{{ 'signup.password' | translate }}"
+						   required/>
+				</div>
+
+				<div class="input-group form-group"
+					 ng-class="{ 'has-error': signupController.form.password.$invalid && signupController.form.$submitted}">
+					<label for="passwordConfirm" class="input-group-addon input-group-addon-email">
+						<i class="fa fa-repeat" tooltip="{{ 'signup.passwordConfirm' | translate }}"></i>
+					</label>
+					<input class="form-control form-input" id="passwordConfirm" type="password"
+						   name="passwordConfirm"
+						   ng-model="signupController.model.passwordConfirm"
+						   placeholder="{{ 'signup.confirmPassword' | translate }}" required/>
+				</div>
+				<button type="reset" class="btn btn-link reset-btn" ng-click="signupController.resetForm()" translate="signup.resetForm"></button>
+				<input class="btn btn-primary signup-btn" type="submit" value="{{ 'signup.signup' | translate }}"/>
+
+			</form>
+		</div>
+		<div class="signup-footer">
+			<a ui-sref="home" translate="signup.home"></a>
+			<span ng-if="signupController.kioskConfig.authConfig.showForgotPassword">-</span>
+			<a ng-if="signupController.kioskConfig.authConfig.showForgotPassword"
+			   ui-sref="forgotPassword" translate="forgotpassword.forgotpassword"></a>
+		</div>
+	</div>
+</div>

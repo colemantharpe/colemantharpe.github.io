@@ -1,0 +1,28 @@
+<div class="awk-title">
+	<div ng-if="titlesDetailController.isLoading">
+		<div class="loading text-center">
+			<ng-include src="'components/spinner/spinner.html'"></ng-include>
+		</div>
+	</div>
+	<div ng-if="!titlesDetailController.isLoading">
+		<div class="title-header">
+			<aqf-sm-image images="titlesDetailController.coverIds"
+						  image-width="titlesDetailController.coverImageWidth"
+						  image-height="titlesDetailController.coverImageHeight"></aqf-sm-image>
+		</div>
+		<div class="container">
+			<h2 class="" ng-bind="titlesDetailController.title.name"></h2>
+			<div class="title-content" ng-repeat="item in titlesDetailController.issues">
+				<div>
+					<aqf-sm-tile-issue
+							class="item"
+							tile-height="titlesDetailController.tileHeight"
+							thumbnail-ratio="titlesDetailController.thumbnailRatio"
+							link-params="item.linkParams"
+							item="item"
+					></aqf-sm-tile-issue>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
