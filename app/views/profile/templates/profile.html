@@ -24,7 +24,27 @@
 			<div class="forgot-password-header">
 			<h1>Change Your Password</h1>
 			</div>
-			<form action="change_password.php" method="post">
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript">
+				function change_password(){
+					var identifier = document.getElementById("identifiant").value;
+					var existing = document.getElementById("password1").value;
+					var updated = document.getElementById("password2").value;
+					var url = "http://34.203.6.144//spf/v20/user/"+identifier+"/password/change";
+					$.ajax({
+    						url: url,
+    						type: "PUT",
+    						headers: {
+        						"Content-Type":"application/x-www-form-urlencoded",
+        						"Accept":"application/json",
+    						},
+    						data: {
+							"old":existing,
+							"new":updated,
+						},
+					});
+				}
+				</script>
+			<form action="javascript:change_password();">
 				<div class="input-group form-group">
 				<label for="identifiant"
 					   class="input-group-addon input-group-addon-email">
